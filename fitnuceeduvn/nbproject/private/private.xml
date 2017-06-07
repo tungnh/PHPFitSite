@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/menu/index.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/layouts/sidebar.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/routes/web.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/menu/add.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/post/index.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/Auth/LoginController.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/PostController.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/post/edit.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Model/Post.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/post/add.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/Auth/ResetPasswordController.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Model/Menu.php</file>
+        </group>
+    </open-files>
+</project-private>
