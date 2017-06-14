@@ -26,6 +26,7 @@
                     </a>
                 </li>
             </ul>
+            @include('admin.layouts.message') <!-- Message alert -->
             <div class="row">
                 <div class="col-sm-12">
                     <section class="panel panel-default">
@@ -64,7 +65,7 @@
                                 <div class="form-group m-b-xs">
                                     <label class="col-sm-2 control-label">Nội dung bài viết :</label>
                                     <div class="col-lg-10">
-                                        <textarea id="new_content" name="new_content" class="form-control">{{ $post_info->new_content }}</textarea>
+                                        <textarea id="post_content" name="post_content" class="form-control">{{ $post_info->post_content }}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-xs">
@@ -101,7 +102,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Trạng thái hiển thị :</label>
                                     <div class="col-sm-10">
-                                        <label class="switch"><input type="checkbox" name="active_flg" value="1" {{ $post_info->active_flg ? 'checked' : '' }}><span></span></label>
+                                        <label class="switch"><input type="checkbox" name="is_active" value="1" {{ $post_info->is_active? 'checked' : '' }}><span></span></label>
                                     </div>
                                 </div>
                                 <div class="line line-dashed line-lg pull-in"></div>
@@ -122,7 +123,7 @@
 </section>
 <script>
     CKEDITOR.replace('description', { height: 100 });
-    CKEDITOR.replace('new_content');
+    CKEDITOR.replace('post_content');
 </script>
 @endsection
 

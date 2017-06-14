@@ -3,33 +3,44 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Model\Menu;
-use App\Http\Requests\MenuRequest;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\MenuRequest;
+use App\Model\Menu;
 use App\Util\Constants;
 
 class MenuController extends Controller
 {
     public function index(Request $request)
     {
-        $menus = Menu::where('title', 'LIKE', '%'.$request->search.'%')
-                ->paginate(Constants::$PAGE_NUMBER);
-        return view('admin.menu.index')->with('menus', $menus)->with('search', $request->search);
+        try {
+            $menus = Menu::where('title', 'LIKE', '%'.$request->search.'%')
+                    ->paginate(Constants::$PAGE_NUMBER);
+            return view('admin.menu.index')->with('menus', $menus)->with('search', $request->search);
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
+        }
     }
     
     public function getAdd()
     {
-        $menus_root = Menu::all(['id', 'title']);
-        return view('admin.menu.add')->with('menus_root', $menus_root);
+        try {
+            $menus_root = Menu::all(['id', 'title']);
+            return view('admin.menu.add')->with('menus_root', $menus_root);
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
+        }
     }
     
     public function postAdd(MenuRequest $request)
     {
         try {
             $menu = new Menu();
-            $menu->id_parent = $request->id_parent;
+            $menu->parent_id = $request->parent_id;
             $menu->title = $request->title;
             $menu->description = $request->description;
             $menu->order_number = $request->order_number;
@@ -39,30 +50,37 @@ class MenuController extends Controller
             $menu->is_top = $request->input('is_top', 0);
             $menu->is_right = $request->input('is_right', 0);
             $menu->is_menubar = $request->input('is_menubar', 0);
-            $menu->active_flg = 1;
+            $menu->is_active = 1;
             $menu->created_at = Carbon::now();
             $menu->created_by = Auth::user()->id;
             $rs = $menu->save();
             if ($rs) {
+                Session::flash(Constants::$SESSION_MSG_SUCCESS, Constants::$MSG_SUCCESS_ADD);
                 return redirect('/admin/menu/index');
-            }
-            else
-            {
+            } else {
+                Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
                 return redirect()->back();  
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
             return redirect()->back();
         }
     }
     
     public function getEdit($id)
     {
-        $menu_info = Menu::find($id);
-        if ($menu_info) {
-            $menus_root = Menu::all(['id', 'title']);
-            return view('/admin/menu/edit')->with(['menu_info'=> $menu_info, 'menus_root' => $menus_root]);
-        } else {
-            return redirect('/admin/menu/index')->withErrors(['message-error' => 'Dữ liệu không tồn tại!']);
+        try {
+            $menu_info = Menu::find($id);
+            if ($menu_info) {
+                $menus_root = Menu::all(['id', 'title']);
+                return view('/admin/menu/edit')->with(['menu_info'=> $menu_info, 'menus_root' => $menus_root]);
+            } else {
+                Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
+                return redirect()->back();
+            }
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
         }
     }
     
@@ -72,7 +90,7 @@ class MenuController extends Controller
             $menu_info = Menu::find($id);
             if ($menu_info)
             {
-                $menu_info->id_parent = $request->id_parent;
+                $menu_info->parent_id = $request->parent_id;
                 $menu_info->title = $request->title;
                 $menu_info->description = $request->description;
                 $menu_info->order_number = $request->order_number;
@@ -82,39 +100,46 @@ class MenuController extends Controller
                 $menu_info->is_top = $request->input('is_top', 0);
                 $menu_info->is_right = $request->input('is_right', 0);
                 $menu_info->is_menubar = $request->input('is_menubar', 0);
-                $menu_info->active_flg = $request->input('active_flg', 0);;
+                $menu_info->is_active = $request->input('is_active', 0);;
                 $menu_info->updated_at = Carbon::now();
                 $menu_info->updated_by = Auth::user()->id;
                 $rs = $menu_info->save();
                 if ($rs) {
+                    Session::flash(Constants::$SESSION_MSG_SUCCESS, Constants::$MSG_SUCCESS_EDIT);
                     return redirect('/admin/menu/index');
                 } else {
-                    return redirect()->back()->withErrors(['message-error' => 'Có lỗi xảy ra. Vui lòng thử lại!']);
+                    Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+                    return redirect()->back();
                 }
             } else {
-                return redirect()->back()->withErrors(['message-error' => 'Dữ liệu không tồn tại!']);
+                Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
+                return redirect()->back();
             }
-        } catch (Exception $ex) {
-            return redirect()->back()->withErrors(['message-error' => 'Có lỗi xảy ra. Vui lòng thử lại!']);
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
         }
     }
     
     public function postDelete($id){
         try {
             $menu_info = Menu::find($id);
-            if ($menu_info)
-            {
+            if ($menu_info) {
                 $rs = $menu_info->delete();
                 if ($rs) {
+                    Session::flash(Constants::$SESSION_MSG_SUCCESS, Constants::$MSG_SUCCESS_DELETE);
                     return redirect('/admin/menu/index');
                 } else {
+                    Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
                     return redirect()->back()->withErrors(['message-error' => 'Có lỗi xảy ra. Vui lòng thử lại!']);
                 }
             } else {
+                Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
                 return redirect()->back()->withErrors(['message-error' => 'Dữ liệu không tồn tại!']);
             }
-        } catch (Exception $ex) {
-            return redirect()->back()->withErrors(['message-error' => 'Có lỗi xảy ra. Vui lòng thử lại!']);
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
         }
     }
 }

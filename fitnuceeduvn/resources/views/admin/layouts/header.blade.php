@@ -83,6 +83,7 @@
                         class="caret"></b> </a>
                 <ul class="dropdown-menu animated fadeInRight"><span class="arrow top"></span>
                     <li><a href="profile.html">Thông tin tài khoản</a></li>
+                    <li><a href="#modal-changepassword" data-toggle="modal">Đổi mật khẩu </a></li>
                     <li><a href="#"> <span class="badge bg-danger pull-right">3</span> Thông báo </a></li>
                     <li><a href="docs.html">Trợ giúp</a></li>
                     <li class="divider"></li>

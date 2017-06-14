@@ -1,5 +1,5 @@
 <?php
-    use App\Util\Constants; 
+    use App\Util\Constants;
 ?>
 @extends('admin.layouts.app')
 
@@ -12,33 +12,44 @@
             <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
                 <li>
                     <a href="index.html">
-                        <i class="fa fa-bars"></i> Danh mục
+                        <i class="fa fa-bars"></i> Nguời dùng
                     </a>
                 </li>
             </ul>
-            <form class="bs-example form-horizontal" name="form" method="GET" action="{{ url('/admin/menu/index') }}">
+            <form class="bs-example form-horizontal" name="form" method="GET" action="{{ url('/admin/account/index') }}">
                 <div class="row hide" id="panel-search">
                     <div class="col-sm-12">
                         <section class="panel panel-default">
                             <div class="panel-body">
-                                <div class="form-group m-b-sm">
-                                    <div class="col-lg-9">
-                                        <label class="col-lg-2 control-label text-center">
-                                            Từ khóa
+                                <div class="col-lg-9">
+                                    <div class="form-group m-b-sm">
+                                        <label class="col-lg-2 control-label">
+                                            Từ khóa :
                                         </label>
                                         <div class="col-lg-9">
-                                            <input id="keysearch" type="text" value="{{ $search }}" class="form-control" placeholder="Tên danh mục, mô tả..." name="search">
+                                            <input id="keysearch" name="s" type="text" value="{{ $s }}" class="form-control" placeholder="Tên người dùng, email...">
                                         </div>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <div class="text-center">
-                                            <button type="submit" id="btn_search" onclick="search();" class="btn btn-sm btn-s-sm btn-primary">
-                                                <i class="fa fa-search"></i> Tìm kiếm
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="clear_filter();">
-                                                <i class="fa fa-trash-o"></i> Xóa điều kiện
-                                            </button>
+                                    <div class="form-group m-b-sm">
+                                        <label class="col-lg-2 control-label">
+                                        </label>
+                                        <div class="col-lg-9">
+                                            <select name="a" class="form-control">
+                                                <option>Trạng thái hoạt động</option>
+                                                <option value="1" {{ $a != '' && $a == 1 ? 'selected' : '' }}>Hoạt động</option>
+                                                <option value="0" {{ $a != '' && $a == 0 ? 'selected' : '' }}>Không hoạt động</option>
+                                            </select>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group m-b-sm text-center">
+                                        <button type="submit" id="btn_search" onclick="search();" class="btn btn-sm btn-s-sm btn-primary">
+                                            <i class="fa fa-search"></i> Tìm kiếm
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="clear_filter();">
+                                            <i class="fa fa-trash-o"></i> Xóa điều kiện
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +61,7 @@
             <div class="row m-b-sm">
                 <div class="col-lg-12">
                     <label class="control-span m-t-xs">
-                        Danh sách danh mục
+                        Danh sách người dùng
                     </label>
                     <div class="pull-right">
                         <button href="#panel-search" class="btn btn-sm btn-s-sm btn-default" data-toggle="class:show"> 
@@ -75,22 +86,13 @@
                                     STT
                                 </th>
                                 <th class="text-center" style="vertical-align: middle;">
-                                    Tên danh mục
+                                    Tên tài khoản
                                 </th>
                                 <th class="text-center" style="vertical-align: middle;">
-                                    Danh mục cha
-                                </th>
-                                <th class="text-center" style="vertical-align: middle;">
-                                    Mô tả
+                                    Email
                                 </th>
                                 <th class="text-center" style="vertical-align: middle; width: 150px;">
                                     Trạng thái hiển thị
-                                </th>
-<!--                                    <th class="text-center" style="vertical-align: middle; width: 150px;">
-                                    Vị trí hiển thị
-                                </th>-->
-                                <th class="text-center" style="vertical-align: middle;">
-                                    Số thứ tự
                                 </th>
                                 <th class="text-center" style="vertical-align: middle;">
                                     Sửa
@@ -101,41 +103,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $index = ($menus->currentPage() - 1) * Constants::$PAGE_NUMBER + 1; ?>
-                            @foreach($menus as $menu)
+                        <?php $index = ($accounts->currentPage() - 1) * Constants::$PAGE_NUMBER + 1; ?>
+                            @foreach($accounts as $account)
                             <tr>
                                 <td align="center">{{ $index }}</td>
-                                <td>{{ $menu->title }}</td>
-                                <td>{{ $menu->menu_parent ? $menu->menu_parent->title : '' }}</td>
-                                <td align="center">{{ $menu->description }}</td>
+                                <td>{{ $account->username }}</td>
+                                <td>{{ $account->email }}</td>
                                 <td align="center">
-                                    @if ($menu->is_active == 0)
+                                    @if ($account->is_active == 0)
                                     <div class="label bg-danger"><b>Không hiển thị</b></div>
                                     @endif
                                 </td>
-<!--                                    <td align="center">
-                                    @if ($menu->is_top == 1)
-                                    <div class="label bg-info"><b>Top</b></div>
-                                    @endif
-                                    @if ($menu->is_menubar == 1)
-                                    <div class="label bg-danger"><b>Danh mục chính</b></div>
-                                    @endif
-                                    @if ($menu->is_home == 1)
-                                    <div class="label bg-primary"><b>Trang chủ</b></div>
-                                    @endif
-                                    @if ($menu->is_right == 1)
-                                    <div class="label bg-warning"><b>Danh mục phải</b></div>
-                                    @endif
-                                </td>-->
-                                <td align="center" style="vertical-align: middle;">{{ $menu->order_number }}</td>
                                 <td width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <a href="{{ url('/admin/menu/edit/'.$menu->id) }}"><i class="fa fa-edit text-dark text" style="font-size : 15px;"></i></a>
+                                    <a href="{{ url('/admin/account/edit/'.$account->id) }}"><i class="fa fa-edit text-dark text" style="font-size : 15px;"></i></a>
                                 </td>
                                 <td width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <form id="delete-form-{{ $menu->id }}" action="{{ url('/admin/menu/delete/'.$menu->id) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $account->id }}" action="{{ url('/admin/account/delete/'.$account->id) }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $menu->id }}').submit();"><i class="fa fa-times text-danger text" style="font-size : 15px;"></i></a>
+                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $account->id }}').submit();"><i class="fa fa-times text-danger text" style="font-size : 15px;"></i></a>
                                 </td>
                             </tr>
                             <?php $index++; ?>
@@ -147,7 +133,7 @@
                     <div class="row text-center-xs">
                         <div class="col-md-4 hidden-sm">
                             <p class="m-t" style="color: #2e3e4e;">
-                                Tổng số <strong>{{ $menus->total() }}</strong> dữ liệu
+                                Tổng số <strong>{{ $accounts->total() }}</strong> dữ liệu
                             </p>
                         </div>
                         <!--                            <div class="col-md-4 hidden-sm">
@@ -156,11 +142,12 @@
                                                         </p>
                                                     </div>-->
                         <div class="col-md-8 col-sm-12 m-t-none m-b-none text-right text-center-xs">
-                            {{ $menus->appends(['search' => $search])->render() }}
+                            {{ $accounts->appends(['s' => $s])->render() }}
                         </div>
                     </div>
                 </footer>
             </section>
+
         </section>
     </section>
 </section>

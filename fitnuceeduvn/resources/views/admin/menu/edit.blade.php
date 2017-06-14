@@ -21,6 +21,7 @@
                     </a>
                 </li>
             </ul>
+            @include('admin.layouts.message') <!-- Message alert -->
             <div class="row">
                 <div class="col-sm-12">
                     <section class="panel panel-default">
@@ -35,10 +36,10 @@
                                         Danh mục cha :
                                     </label>
                                     <div class="col-lg-6">
-                                        <select name="id_parent" class="form-control">
+                                        <select name="parent_id" class="form-control">
                                             <option value="0">Root</option>
                                             @foreach($menus_root as $menu)
-                                                <option value="{{ $menu->id }}" {{ $menu->id == $menu_info->id_parent ? ' selected' : '' }}>{{ $menu->title }}</option>
+                                                <option value="{{ $menu->id }}" {{ $menu->id == $menu_info->parent_id ? ' selected' : '' }}>{{ $menu->title }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -111,23 +112,23 @@
                                     </label>
                                     <div class="col-lg-6">
                                         <div class="checkbox">
-                                            <label class="checkbox-custom"><input type="checkbox" name="is_top" value="1"><i class="fa fa-fw fa-square-o"></i> Danh mục Top</label>
+                                            <label class="checkbox-custom"><input type="checkbox" name="is_top" value="1" {{ $menu_info->is_top ? 'checked' : '' }}><i class="fa fa-fw fa-square-o"></i> Danh mục Top</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label class="checkbox-custom"><input type="checkbox" name="is_menubar" checked="checked" value="1"><i class="fa fa-fw fa-square-o"></i> Danh mục Chính </label>
+                                            <label class="checkbox-custom"><input type="checkbox" name="is_menubar" value="1" {{ $menu_info->is_menubar ? 'checked' : '' }}><i class="fa fa-fw fa-square-o"></i> Danh mục Chính </label>
                                         </div>
                                         <div class="checkbox">
-                                            <label class="checkbox-custom"><input type="checkbox" name="is_home" value="1"><i class="fa fa-fw fa-square-o"></i> Danh mục Trang chủ</label>
+                                            <label class="checkbox-custom"><input type="checkbox" name="is_home" value="1" {{ $menu_info->is_home ? 'checked' : '' }}><i class="fa fa-fw fa-square-o"></i> Danh mục Trang chủ</label>
                                         </div>
                                         <div class="checkbox">
-                                            <label class="checkbox-custom"><input type="checkbox" name="is_right" value="1"><i class="fa fa-fw fa-square-o"></i> Danh mục Bên phải </label>
+                                            <label class="checkbox-custom"><input type="checkbox" name="is_right" value="1" {{ $menu_info->is_right ? 'checked' : '' }}><i class="fa fa-fw fa-square-o"></i> Danh mục Bên phải </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">Trạng thái hoạt động</label>
                                     <div class="col-sm-10">
-                                        <label class="switch"><input type="checkbox" name="active_flg" value="1" {{ $menu_info->active_flg ? 'checked' : '' }}><span></span></label>
+                                        <label class="switch"><input type="checkbox" name="is_active" value="1" {{ $menu_info->is_active ? 'checked' : '' }}><span></span></label>
                                     </div>
                                 </div>
                                 <div class="line line-dashed line-lg pull-in"></div>

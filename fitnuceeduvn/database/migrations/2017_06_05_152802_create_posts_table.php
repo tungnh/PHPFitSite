@@ -27,7 +27,7 @@ class CreatePostsTable extends Migration
             $table->boolean('is_comment');
             $table->boolean('is_shared');
             $table->boolean('is_home');
-            $table->boolean('active_flg');
+            $table->boolean('is_active');
             $table->timestamps();
             $table->integer('created_by')->nullable()->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();

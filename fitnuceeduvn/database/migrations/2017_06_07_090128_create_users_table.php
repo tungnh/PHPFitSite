@@ -26,9 +26,7 @@ class CreateUsersTable extends Migration
             $table->text('avatar');
             $table->text('persion_info');
             
-            $table->text('mobile');
-            $table->text('sex');
-            $table->text('mobile');
+            
             $table->timestamps();
             $table->integer('created_by')->nullable()->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();

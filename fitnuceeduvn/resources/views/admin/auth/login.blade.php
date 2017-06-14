@@ -1,3 +1,6 @@
+<?php
+    use App\Util\Constants; 
+?>
 <!DOCTYPE html>
 <html lang="en" class="bg-dark">
 <head>
@@ -18,11 +21,17 @@
                 </header>
                 <form role="form" data-validate="parsley" method="POST" action="{{ url('/admin/auth/login') }}" class="panel-body wrapper-lg">
                     {{ csrf_field() }}
-                    <div class="form-group">
+                    <div class="form-group{{ Session::has(Constants::$SESSION_MSG_ERROR) ? ' has-error' : '' }}">
                         <label class="control-label">Email</label>
                         <input name="email" placeholder="test@example.com" class="form-control input-lg" autofocus
+                               value="{{ old('email') }}"
                                data-required="true" data-required-message="<b>Email</b> không được để trống"
                                data-type="email" data-type-email-message="<b>Email</b> nhập sai định dạng">
+                        @if (Session::has(Constants::$SESSION_MSG_ERROR))
+                            <span class="help-block">
+                                <strong>{{ Session::get(Constants::$SESSION_MSG_ERROR) }}</strong>
+                            </span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label class="control-label">Mật khẩu</label>
@@ -32,7 +41,7 @@
                     <div class="checkbox">
                         <label> <input type="checkbox" name="remember" value="1"> Giữ tôi luôn đăng nhập</label>
                     </div>
-                    <a href="#" class="pull-right m-t-xs"><small>Quên mật khẩu?</small></a>
+                    <a href="{{ url('/admin/auth/password/reset') }}" class="pull-right m-t-xs"><small>Quên mật khẩu?</small></a>
                     <button type="submit" class="btn btn-primary">Đăng nhập</button>
 <!--                    <div class="line line-dashed"></div>
                     <a href="#" class="btn btn-facebook btn-block m-b-sm"><i class="fa fa-facebook pull-left"></i>Sign in with Facebook</a>

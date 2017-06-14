@@ -15,7 +15,7 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('id_parent')->default(0);
+            $table->integer('parent_id')->default(0);
             $table->integer('order_number');
             $table->string('title', 200);
             $table->text('description')->nullable();
@@ -25,7 +25,7 @@ class CreateMenusTable extends Migration
             $table->boolean('is_top');
             $table->boolean('is_right');
             $table->boolean('is_menubar');
-            $table->boolean('active_flg');
+            $table->boolean('is_active');
             $table->timestamps();
             $table->integer('created_by')->nullable()->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();

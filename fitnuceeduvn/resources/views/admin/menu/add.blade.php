@@ -21,7 +21,8 @@
                     </a>
                 </li>
             </ul>
-            <div class="row">
+            @include('admin.layouts.message') <!-- Message alert -->
+            <div class="row animated fadeInRightBig">
                 <div class="col-sm-12">
                     <section class="panel panel-default">
                         <div class="panel-body">
@@ -33,7 +34,7 @@
                                 <div class="form-group m-b-xs">
                                     <label class="col-sm-2 control-label">Danh mục cha :</label>
                                     <div class="col-lg-6">
-                                        <select name="id_parent" class="form-control">
+                                        <select name="parent_id" class="form-control">
                                             <option value="0">Root</option>
                                             @foreach($menus_root as $menu)
                                                 <option value="{{ $menu->id }}">{{ $menu->title }}</option>

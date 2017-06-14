@@ -3,7 +3,7 @@
 ?>
 @extends('admin.layouts.app')
 
-@section('title', 'Danh sách bài viết')
+@section('title', 'Danh sách Slide')
 
 @section('content')
 <!--- ckfinder -->
@@ -20,7 +20,7 @@
                 </li>
                 <li>
                     <a href="javascript: void(0);">
-                        Bài viết
+                        Slide trang chủ
                     </a>
                 </li>
             </ul>

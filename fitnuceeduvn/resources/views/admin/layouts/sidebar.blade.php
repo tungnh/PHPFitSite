@@ -50,8 +50,8 @@
                                         <span>Bình luận</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="layout-h.html">
+                                <li {{ (Request::is('admin/slide/*')) ? 'class=active' : '' }}>
+                                    <a href="{{ url('/admin/slide/index') }}" {{ (Request::is('admin/slide/*')) ? 'class=active' : '' }}>
                                         <i class="fa fa-angle-right"></i>
                                         <span>Slide trang chủ</span>
                                     </a>
@@ -129,8 +129,8 @@
                             </ul>
                         </li>
                         <!-- Người dùng -->
-                        <li>
-                            <a href="#layout">
+                        <li {{ (Request::is('admin/user/*') || Request::is('admin/account/*')) ? 'class=active' : '' }}>
+                            <a href="#layout" {{ (Request::is('admin/user/*') || Request::is('admin/account/*')) ? 'class=active' : '' }}>
                                 <i class="fa fa-group icon"><b class="bg-info"></b></i>
                                 <span class="pull-right">
                                     <i class="fa fa-angle-down text"></i>
@@ -140,7 +140,13 @@
                             </a>
                             <ul class="nav lt">
                                 <li>
-                                    <a href="layout-c.html">
+                                    <a href="{{ url('/admin/user/index') }}">
+                                        <i class="fa fa-angle-right"></i>
+                                        <span>Người dùng</span>
+                                    </a>
+                                </li>
+                                <li {{ (Request::is('admin/account/*')) ? 'class=active' : '' }}>
+                                    <a href="{{ url('/admin/account/index') }}" {{ (Request::is('admin/account/*')) ? 'class=active' : '' }}>
                                         <i class="fa fa-angle-right"></i>
                                         <span>Tài khoản</span>
                                     </a>

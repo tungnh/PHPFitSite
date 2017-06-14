@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Request;
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +45,27 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $urlError403 = '/error/403';
+        $urlError404 = '/error/404';
+        $urlError500 = '/error/500';
+        if (Request::is('admin/*')) {
+            $urlError403 = '/admin/error/403';
+            $urlError404 = '/admin/error/404';
+            $urlError500 = '/admin/error/500';
+        }
+        
+        if ($this->isHttpException($exception)) {
+            switch ($exception->getStatusCode()) {
+                case '403':
+                    return redirect($urlError403);
+                case '404':
+                    return redirect($urlError404);
+                case '500':
+                    return redirect($urlError500);
+                default:
+                    return $this->renderHttpException($exception);
+            }
+        }
         return parent::render($request, $exception);
     }
 

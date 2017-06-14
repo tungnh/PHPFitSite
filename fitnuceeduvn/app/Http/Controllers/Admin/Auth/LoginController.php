@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AccountRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use App\Util\Constants;
 
 class LoginController extends Controller
 {
@@ -27,11 +29,10 @@ class LoginController extends Controller
             'is_active' => 1
         ];
         if (Auth::attempt($login, $request->input('remember', 0))) {
-            return redirect(route('getAdminHomeIndex'));
-        }
-        else
-        {
-            return redirect()->back()->withInput()->withErrors(['email' => 'Thông tin đăng nhập không chính xác!']);
+            return redirect()->intended(route('getAdminHomeIndex'));
+        } else {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_LOGIN_FAILURE);
+            return redirect()->back()->withInput();
         }
     }
     

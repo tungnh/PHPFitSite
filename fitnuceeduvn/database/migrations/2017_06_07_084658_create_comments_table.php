@@ -22,7 +22,7 @@ class CreateCommentsTable extends Migration
             $table->integer('post_id')->unsigned()->nullable();
             $table->text('comments_content');
             $table->integer('total_like')->default(0);
-            $table->boolean('active_flg');
+            $table->boolean('is_active');
             $table->timestamps();
             $table->integer('created_by')->nullable()->unsigned();
             $table->integer('updated_by')->nullable()->unsigned();

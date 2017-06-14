@@ -19,9 +19,11 @@ class CreateAccountsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_active');
-            $table->boolean('is_delete');
+            $table->boolean('is_delete')->default(0);
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('created_by')->nullable()->unsigned();
+            $table->integer('updated_by')->nullable()->unsigned();
         });
     }
 
