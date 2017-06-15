@@ -3,8 +3,10 @@
 @section('title', 'Cập nhật bài viết')
 
 @section('content')
-<!--- ckfinder -->
+<!--- CkEditor -->
 {{ Html::script('js/ckeditor/ckeditor.js') }}
+<!--- CkFinder -->
+{{ Html::script('js/ckfinder/ckfinder.js') }}
 
 <section id="content">
     <section class="vbox">
@@ -82,6 +84,13 @@
                                                   data-maxlength="500" data-maxlength-message="<b>Meta description</b> không được vượt quá 500 ký tự" >{{ $post_info->meta_desciption }}</textarea>
                                     </div>
                                 </div>
+                                <div class="form-group m-b-xs" id="div-link">
+                                    <label class="col-sm-2 control-label">Ảnh đại diện :</label>
+                                    <div class="col-lg-6">
+                                        <input hidden name="avatar" id="avatar" value="{{ $post_info->avatar }}" />
+                                        <img src="{{ $post_info->avatar }}" id="select_avatar" class="img-avatar"/>
+                                    </div>
+                                </div>
                                 <div class="form-group m-b-xs">
                                     <label class="col-sm-2 control-label">Tùy chọn hiển thị :</label>
                                     <div class="col-lg-6">
@@ -124,6 +133,17 @@
 <script>
     CKEDITOR.replace('description', { height: 100 });
     CKEDITOR.replace('post_content');
+    
+    $(function () {
+        $('#select_avatar').click(function () {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $('#select_avatar').attr("src", fileUrl);
+                $('#avatar').val(fileUrl);
+            };
+            ckfinder.popup();
+        });
+    });
 </script>
 @endsection
 

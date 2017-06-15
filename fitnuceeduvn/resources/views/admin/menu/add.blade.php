@@ -49,13 +49,11 @@
                                                data-required="true" data-required-message="<b>Tên danh mục</b> không được để trống">
                                     </div>
                                 </div>
-                                <div class="form-group m-b-xs">
-                                    <label class="col-lg-2 control-label">
-                                        <input type="button" id="brower" value="Chọn ảnh">
-                                    </label>
+                                <div class="form-group m-b-xs" id="div-link">
+                                    <label class="col-sm-2 control-label">Ảnh đại diện :</label>
                                     <div class="col-lg-6">
-                                        <input hidden value="/Images/no-image.jpg" name="avatar" id="attachFilepath">
-                                        <img src="/Images/no-image.jpg" id="images" style="max-width: 200px;">
+                                        <input hidden name="avatar" id="avatar" value="/images/no-image.jpg" />
+                                        <img src="/images/no-image.jpg" id="select_avatar" class="img-avatar"/>
                                     </div>
                                 </div>
 <!--                                <div class="form-group m-b-xs">
@@ -129,11 +127,11 @@
 </section>
 <script>
     $(function () {
-        $('#brower').click(function () {
+        $('#select_avatar').click(function () {
             var ckfinder = new CKFinder();
             ckfinder.selectActionFunction = function (fileUrl) {
-                $('#images').attr("src", fileUrl);
-                $('#attachFilepath').val(fileUrl);
+                $('#select_avatar').attr("src", fileUrl);
+                $('#avatar').val(fileUrl);
             };
             ckfinder.popup();
         });

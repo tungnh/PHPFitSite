@@ -12,13 +12,25 @@
             <ul class="breadcrumb no-border no-radius b-b b-light pull-in">
                 <li>
                     <a href="javascript: void(0);">
-                        <i class="fa fa-bars"></i> Tin tức
-                    </a>
-                    <a href="{{ url('/admin/comment/index') }}">
-                        <i class="fa fa-bars"></i> Bình luận
+                        <i class="fa fa-tag"></i> Tin tức
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url('/admin/comment/index') }}">Bình luận</a>
+                </li>
             </ul>
+            <div class="row m-b-sm">
+                <div class="col-lg-12">
+                    <div class="pull-left">
+                        <button href="#panel-search" class="btn btn-sm btn-s-sm btn-default" data-toggle="class:show"> 
+                            <i class="fa fa-search-plus text"></i> 
+                            <span class="text">Mở tìm kiếm</span> 
+                            <i class="fa fa-search-minus text-active"></i> 
+                            <span class="text-active">Đóng tìm kiếm</span> 
+                        </button>
+                    </div>
+                </div>
+            </div>
             <form class="bs-example form-horizontal" name="form" method="GET" action="{{ url('/admin/comment/index') }}">
                 <div class="row hide" id="panel-search">
                     <div class="col-sm-12">
@@ -30,7 +42,7 @@
                                             Từ khóa
                                         </label>
                                         <div class="col-lg-9">
-                                            <input id="keysearch" type="text" value="{{ $s }}" class="form-control" placeholder="Tên danh mục, mô tả..." name="search">
+                                            <input id="keysearch" type="text" value="{{ $s }}" class="form-control" placeholder="Tên, email, nội dung..." name="s">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -56,16 +68,9 @@
                         Danh sách bình luận
                     </label>
                     <div class="pull-right">
-                        <button href="#panel-search" class="btn btn-sm btn-s-sm btn-default" data-toggle="class:show"> 
-                            <i class="fa fa-filter text"></i> 
-                            <span class="text">Mở tìm kiếm</span> 
-                            <i class="fa fa-filter text-active"></i> 
-                            <span class="text-active">Đóng tìm kiếm</span> 
-                        </button>
                         <a href="add" class="btn btn-sm btn-s-sm btn-primary">
                             <i class="fa fa-plus"></i> Thêm mới
                         </a>
-
                     </div>
                 </div>
             </div>
@@ -86,13 +91,19 @@
                                 <th class="text-center" style="vertical-align: middle;">
                                     Nội dung
                                 </th>
+                                <th class="text-center" style="vertical-align: middle;">
+                                    Số lượt thích
+                                </th>
                                 <th class="text-center" style="vertical-align: middle; width: 150px;">
                                     Trạng thái hiển thị
                                 </th>
-                                <th class="text-center" style="vertical-align: middle;">
+                                <th class="text-center" style="vertical-align: middle; width : 40px;">
+                                    Trả lời
+                                </th>
+                                <th class="text-center" style="vertical-align: middle; width : 40px;">
                                     Sửa
                                 </th>
-                                <th class="text-center" style="vertical-align: middle;">
+                                <th class="text-center" style="vertical-align: middle; width : 40px;">
                                     Xóa
                                 </th>
                             </tr>
@@ -102,19 +113,33 @@
                             @foreach($comments as $comment)
                             <tr>
                                 <td align="center">{{ $index }}</td>
-                                <td>{{ $comment->full_name }}</td>
-                                <td>{{ $comment->post_id : '' }}</td>
+                                <td>
+                                    <div class="text-left">
+                                        <label>Tên đầy đủ:</label> {{ $comment->account_id ? ($comment->account ? $comment->account->username : $comment->full_name) : $comment->full_name }}<br/>
+                                        <label>Email:</label> {{ $comment->account_id ? ($comment->account ? $comment->account->email : $comment->email) : $comment->email }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="">{{ $comment->post ? $comment->post->title : '' }}</a>
+                                </td>
                                 <td align="center">{{ $comment->comments_content }}</td>
+                                <td align="center">{{ $comment->total_like }}</td>
                                 <td align="center">
                                     @if ($comment->is_active == 0)
                                     <div class="label bg-danger"><b>Không hiển thị</b></div>
                                     @endif
                                 </td>
                                 <td width="40px;" class="text-center" style="vertical-align: middle;">
+                                    <a href="{{ url('/admin/comment/reply/'.$comment->id) }}"><i class="fa fa-mail-forward text-dark text"></i></a>
+                                </td>
+                                <td width="40px;" class="text-center" style="vertical-align: middle;">
+                                    <a href="{{ url('/admin/comment/edit/'.$comment->id) }}"><i class="fa fa-edit text-dark text"></i></a>
+                                </td>
+                                <td width="40px;" class="text-center" style="vertical-align: middle;">
                                     <form id="delete-form-{{ $comment->id }}" action="{{ url('/admin/comment/delete/'.$comment->id) }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $comment->id }}').submit();"><i class="fa fa-times text-danger text" style="font-size : 15px;"></i></a>
+                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $comment->id }}').submit();"><i class="fa fa-times text-danger text"></i></a>
                                 </td>
                             </tr>
                             <?php $index++; ?>
@@ -135,7 +160,7 @@
                                                         </p>
                                                     </div>-->
                         <div class="col-md-8 col-sm-12 m-t-none m-b-none text-right text-center-xs">
-                            {{ $comments->appends(['search' => $search])->render() }}
+                            {{ $comments->appends(['s' => $s])->render() }}
                         </div>
                     </div>
                 </footer>

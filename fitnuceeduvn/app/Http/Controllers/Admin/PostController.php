@@ -59,10 +59,11 @@ class PostController extends Controller
             $post->menu_id = $request->menu_id;
             $post->title = $request->title;
             $post->description = $request->description;
-            $post->post_content = $request->new_content;
+            $post->post_content = $request->post_content;
             $post->meta_keyword = $request->meta_keyword;
             $post->meta_desciption = $request->meta_desciption;
             $post->meta_desciption = $request->meta_desciption;
+            $post->avatar = $request->avatar;
             $post->is_home = $request->input('is_home', 0);
             $post->is_shared = $request->input('is_shared', 0);
             $post->is_comment = $request->input('is_comment', 0);
@@ -109,10 +110,11 @@ class PostController extends Controller
                 $post_info->menu_id = $request->menu_id;
                 $post_info->title = $request->title;
                 $post_info->description = $request->description;
-                $post_info->post_content = $request->new_content;
+                $post_info->post_content = $request->post_content;
                 $post_info->meta_keyword = $request->meta_keyword;
                 $post_info->meta_desciption = $request->meta_desciption;
                 $post_info->meta_desciption = $request->meta_desciption;
+                $post_info->avatar = $request->avatar;
                 $post_info->is_home = $request->input('is_home', 0);
                 $post_info->is_shared = $request->input('is_shared', 0);
                 $post_info->is_comment = $request->input('is_comment', 0);

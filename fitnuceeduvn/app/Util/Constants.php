@@ -13,6 +13,7 @@ class Constants {
     public static $SESSION_MSG_ERROR = 'msg_success';
     public static $SESSION_MSG_SUCCESS = 'msg_error';
     public static $SESSION_MSG_WARNING = 'msg_warning';
+    public static $SESSION_MSG_ERROR_EXEPTION = 'msg_error_exeption';
     
     public static $MSG_SUCCESS_ADD = 'Thêm mới dữ liệu thành công.';
     public static $MSG_SUCCESS_EDIT = 'Cập nhật dữ liệu thành công';
@@ -20,4 +21,5 @@ class Constants {
     
     public static $MSG_ERROR = 'Có lỗi xảy ra, vui lòng thử lại.';
     public static $MSG_ERROR_DATA_NOT_EXIT = 'Dữ liệu không tồn tại.';
+    
 }

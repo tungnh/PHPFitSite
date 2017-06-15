@@ -69,8 +69,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         //Comment
         Route::group(['prefix' => 'comment'], function() {
             Route::get('/index', ['as' => 'getAdminCommentIndex', 'uses' => 'CommentController@index']);
+            Route::get('/commentsbypost/{id?}/{reply_id?}', ['as' => 'getAdminCommentGetCommentsByPost', 'uses' => 'CommentController@getCommentsByPost']);
             Route::get('/add', ['as' => 'getAdminCommentAdd', 'uses' => 'CommentController@getAdd']);
             Route::post('/add', ['as' => 'postAdminCommentAdd', 'uses' => 'CommentController@postAdd']);
+            Route::get('/reply/{id}', ['as' => 'getAdminCommentReply', 'uses' => 'CommentController@getReply']);
+            Route::post('/reply/{id}', ['as' => 'postAdminCommentReply', 'uses' => 'CommentController@postReply']);
             Route::get('/edit/{id}', ['as' => 'getAdminCommentEdit', 'uses' => 'CommentController@getEdit']);
             Route::post('/edit/{id}', ['as' => 'postAdminCommentEdit', 'uses' => 'CommentController@postEdit']);
             Route::post('/delete/{id}', ['as' => 'postAdminCommentDelete', 'uses' => 'CommentController@postDelete']);

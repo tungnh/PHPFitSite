@@ -100,7 +100,7 @@ class MenuController extends Controller
                 $menu_info->is_top = $request->input('is_top', 0);
                 $menu_info->is_right = $request->input('is_right', 0);
                 $menu_info->is_menubar = $request->input('is_menubar', 0);
-                $menu_info->is_active = $request->input('is_active', 0);;
+                $menu_info->is_active = $request->input('is_active', 0);
                 $menu_info->updated_at = Carbon::now();
                 $menu_info->updated_by = Auth::user()->id;
                 $rs = $menu_info->save();
@@ -131,11 +131,11 @@ class MenuController extends Controller
                     return redirect('/admin/menu/index');
                 } else {
                     Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
-                    return redirect()->back()->withErrors(['message-error' => 'Có lỗi xảy ra. Vui lòng thử lại!']);
+                    return redirect()->back();
                 }
             } else {
                 Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
-                return redirect()->back()->withErrors(['message-error' => 'Dữ liệu không tồn tại!']);
+                return redirect()->back();
             }
         } catch (\Exception $ex) {
             Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);

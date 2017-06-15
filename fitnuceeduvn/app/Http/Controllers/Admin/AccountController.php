@@ -106,7 +106,29 @@ class AccountController extends Controller
                 }
             } else {
                 Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
-                return redirect()->back()->withErrors(['message-error' => 'Dữ liệu không tồn tại!']);
+                return redirect()->back();
+            }
+        } catch (\Exception $ex) {
+            Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+            return redirect()->back();
+        }
+    }
+    
+    public function postDelete($id){
+        try {
+            $account_info = Account::find($id);
+            if ($account_info) {
+                $rs = $account_info->delete();
+                if ($rs) {
+                    Session::flash(Constants::$SESSION_MSG_SUCCESS, Constants::$MSG_SUCCESS_DELETE);
+                    return redirect('/admin/account/index');
+                } else {
+                    Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);
+                    return redirect()->back();
+                }
+            } else {
+                Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);
+                return redirect()->back();
             }
         } catch (\Exception $ex) {
             Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR);

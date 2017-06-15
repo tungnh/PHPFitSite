@@ -40,7 +40,7 @@
                                 <div class="form-group m-b-xs">
                                     <label class="col-sm-2 control-label">Email <font color="red">*</font> :</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="email" class="form-control"
+                                        <input type="password" name="email" class="form-control"
                                                value="{{ $account_info->email }}"
                                                data-required="true" data-required-message="<b>Email</b> không được để trống"
                                                data-maxlength="255" data-maxlength-message="<b>Email</b> phải nhỏ hơn 255 ký tự"
@@ -50,7 +50,7 @@
                                 <div class="form-group m-b-xs">
                                     <label class="col-sm-2 control-label">Mật khẩu <font color="red">*</font> :</label>
                                     <div class="col-lg-6">
-                                        <input type="text" name="password" id='password' class="form-control" 
+                                        <input type="password" name="password" id='password' class="form-control" 
                                                data-required="true" data-required-message="<b>Mật khẩu</b> không được để trống"
                                                data-minlength="6" data-minlength-message="<b>Mật khẩu</b> phải lớn hơn 6 ký tự"
                                                data-maxlength="255" data-maxlength-message="<b>Mật khẩu</b> phải nhỏ hơn 255 ký tự">

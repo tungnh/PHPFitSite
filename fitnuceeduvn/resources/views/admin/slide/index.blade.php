@@ -3,12 +3,9 @@
 ?>
 @extends('admin.layouts.app')
 
-@section('title', 'Danh sách Slide')
+@section('title', 'Slide')
 
 @section('content')
-<!--- ckfinder -->
-{{ Html::script('js/ckfinder/ckfinder.js') }}
-
 <section id="content">
     <section class="vbox">
         <section class="scrollable padder">
@@ -19,55 +16,45 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript: void(0);">
-                        Slide trang chủ
-                    </a>
+                    <a href="{{ url('/admin/slide/index') }}">Slide</a>
                 </li>
             </ul>
-            <form class="bs-example form-horizontal" name="form" method="GET" action="{{ url('/admin/post/index') }}">
+            <div class="row m-b-sm">
+                <div class="col-lg-12">
+                    <div class="pull-left">
+                        <button href="#panel-search" class="btn btn-sm btn-s-sm btn-default" data-toggle="class:show"> 
+                            <i class="fa fa-search-plus text"></i> 
+                            <span class="text">Mở tìm kiếm</span> 
+                            <i class="fa fa-search-minus text-active"></i> 
+                            <span class="text-active">Đóng tìm kiếm</span> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <form class="bs-example form-horizontal" name="form" method="GET" action="{{ url('/admin/slide/index') }}">
                 <div class="row hide" id="panel-search">
                     <div class="col-sm-12">
                         <section class="panel panel-default">
                             <div class="panel-body">
-                                <div class="col-lg-9">
-                                    <div class="form-group m-b-xs">
-                                        <label class="col-lg-2 control-label">
-                                            Từ khóa :
+                                <div class="form-group m-b-sm">
+                                    <div class="col-lg-9">
+                                        <label class="col-lg-2 control-label text-center">
+                                            Từ khóa
                                         </label>
                                         <div class="col-lg-9">
-                                            <input id="keysearch" type="text" value="{{ $s }}" class="form-control" placeholder="Tiêu đề, trích dẫn, nội dung..." name="s">
+                                            <input id="keysearch" type="text" value="{{ $s }}" class="form-control" placeholder="Tiêu đề, trích dẫn..." name="s">
                                         </div>
                                     </div>
-                                    <div class="form-group m-b-xs">
-                                        <label class="col-lg-2 control-label">
-                                            Lọc theo:
-                                        </label>
-                                        <div class="col-lg-5">
-                                            <select class="form-control" name="m">
-                                                <option value="">Danh mục chứa</option>
-                                                @foreach ($menus as $menu)
-                                                <option value="{{ $menu->id }}" {{ $menu->id == $m ? 'selected' : '' }}>{{ $menu->title }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <select class="form-control" name="a">
-                                                <option value="">Trạng thái hiển thị</option>
-                                                <option value="1" {{ $a == 1 ? 'selected' : '' }}>Hiển thị</option>
-                                                <option value="0" {{ $a == 0 ? 'selected' : '' }}>Không hiển thị</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group m-b-xs text-center">
-                                            <button type="submit" id="btn_search" class="btn btn-sm btn-s-sm btn-primary">
+                                    <div class="col-lg-3">
+                                        <div class="text-center">
+                                            <button type="submit" id="btn_search" onclick="search();" class="btn btn-sm btn-s-sm btn-primary">
                                                 <i class="fa fa-search"></i> Tìm kiếm
                                             </button>
                                             <button type="button" class="btn btn-sm btn-danger" onclick="clear_filter();">
                                                 <i class="fa fa-trash-o"></i> Xóa điều kiện
                                             </button>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -78,19 +65,12 @@
             <div class="row m-b-sm">
                 <div class="col-lg-12">
                     <label class="control-span m-t-xs">
-                        Danh sách bài viết
+                        Danh sách slide
                     </label>
                     <div class="pull-right">
-                        <button href="#panel-search" class="btn btn-sm btn-s-sm btn-default" data-toggle="class:show"> 
-                            <i class="fa fa-filter text"></i> 
-                            <span class="text">Mở tìm kiếm</span> 
-                            <i class="fa fa-filter text-active"></i> 
-                            <span class="text-active">Đóng tìm kiếm</span> 
-                        </button>
                         <a href="add" class="btn btn-sm btn-s-sm btn-primary">
                             <i class="fa fa-plus"></i> Thêm mới
                         </a>
-
                     </div>
                 </div>
             </div>
@@ -99,9 +79,6 @@
                     <table class="table table-striped m-b-none">
                         <thead>
                             <tr>
-                                <th width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <input type="checkbox">
-                                </th>
                                 <th class="text-center" style="vertical-align: middle; width : 40px;">
                                     STT
                                 </th>
@@ -112,51 +89,44 @@
                                     Tiêu đề
                                 </th>
                                 <th class="text-center" style="vertical-align: middle;">
-                                    Trích dẫn
+                                    Mô tả
                                 </th>
                                 <th class="text-center" style="vertical-align: middle;">
-                                    Danh mục chứa
+                                    Số thứ tự
                                 </th>
                                 <th class="text-center" style="vertical-align: middle; width: 150px;">
                                     Trạng thái hiển thị
                                 </th>
-                                <th class="text-center" style="vertical-align: middle;">
-                                    Link
-                                </th>
-                                <th class="text-center" style="vertical-align: middle;">
+                                <th class="text-center" style="vertical-align: middle; width : 40px;">
                                     Sửa
                                 </th>
-                                <th class="text-center" style="vertical-align: middle;">
+                                <th class="text-center" style="vertical-align: middle; width : 40px;">
                                     Xóa
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $index = ($posts->currentPage() - 1) * Constants::$PAGE_NUMBER + 1; ?>
-                            @foreach($posts as $post)
+                            <?php $index = ($slides->currentPage() - 1) * Constants::$PAGE_NUMBER + 1; ?>
+                            @foreach($slides as $slide)
                             <tr>
-                                <td width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <input type="checkbox" />
-                                </td>
-                                <td align="center" style="vertical-align: middle;">{{ $index }}</td>
-                                <td>{{ $post->avatar }}</td>
-                                <td>{{ $post->title }}</td>
-                                <td align="center">{!! $post->description !!}</td>
-                                <td align="center" style="vertical-align: middle;">{{ $post->menu ? $post->menu->title : '' }}</td>
-                                <td align="center" style="vertical-align: middle;">
-                                    @if ($post->is_active == 0)
+                                <td align="center">{{ $index }}</td>
+                                <td width="150px"><img src="{{ $slide->avatar }}" class="img-thumbnail"/></td>
+                                <td>{{ $slide->title }}</td>
+                                <td align="center">{{ $slide->description }}</td>
+                                <td align="center">{{ $slide->order_number }}</td>
+                                <td align="center">
+                                    @if ($slide->is_active == 0)
                                     <div class="label bg-danger"><b>Không hiển thị</b></div>
                                     @endif
                                 </td>
-                                <td align="center" style="vertical-align: middle;"></td>
                                 <td width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <a href="{{ url('/admin/post/edit/'.$post->id) }}"><i class="fa fa-edit text-dark text" style="font-size : 15px;"></i></a>
+                                    <a href="{{ url('/admin/slide/edit/'.$slide->id) }}"><i class="fa fa-edit text-dark text"></i></a>
                                 </td>
                                 <td width="40px;" class="text-center" style="vertical-align: middle;">
-                                    <form id="delete-form-{{ $post->id }}" action="{{ url('/admin/post/delete/'.$post->id) }}" method="POST" style="display: none;">
+                                    <form id="delete-form-{{ $slide->id }}" action="{{ url('/admin/slide/delete/'.$slide->id) }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $post->id }}').submit();"><i class="fa fa-times text-danger text" style="font-size : 15px;"></i></a>
+                                    <a href="javascript: void(0);" onclick="event.preventDefault(); if (confirm('Bạn có chắc chắn muốn xóa bản ghi này!')) document.getElementById('delete-form-{{ $slide->id }}').submit();"><i class="fa fa-times text-danger text"></i></a>
                                 </td>
                             </tr>
                             <?php $index++; ?>
@@ -168,11 +138,16 @@
                     <div class="row text-center-xs">
                         <div class="col-md-4 hidden-sm">
                             <p class="m-t" style="color: #2e3e4e;">
-                                Tổng số <strong>{{ $posts->total() }}</strong> dữ liệu
+                                Tổng số <strong>{{ $slides->total() }}</strong> dữ liệu
                             </p>
                         </div>
+                        <!--                            <div class="col-md-4 hidden-sm">
+                                                        <p class="m-t" style="color: #2e3e4e; text-align: center;">
+                                                            Hiển thị trang <input type="text" size="5" name="page" value="1" id="pageid"> / 3
+                                                        </p>
+                                                    </div>-->
                         <div class="col-md-8 col-sm-12 m-t-none m-b-none text-right text-center-xs">
-                            {{ $posts->appends(['s' => $s, 'm' => $m, 'a' => $a])->render() }}
+                            {{ $slides->appends(['s' => $s])->render() }}
                         </div>
                     </div>
                 </footer>
@@ -180,4 +155,4 @@
         </section>
     </section>
 </section>
-@endsection
+@endsection('content')

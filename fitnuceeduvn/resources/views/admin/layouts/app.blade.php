@@ -8,10 +8,11 @@
           content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     {{ Html::style('css/app.v2.css') }}
+    {{ Html::style('css/styles.css') }}
     {{ Html::style('css/font.css') }}
     {{ Html::style('js/calendar/bootstrap_calendar.css', ['cache' => 'false']) }}
-<!--    {{ Html::style('js/select2/select2.css', ['cache' => 'false']) }}
-    {{ Html::style('js/select2/theme.css', ['cache' => 'false']) }}-->
+    {{ Html::style('js/select2/select2.css', ['cache' => 'false']) }}
+    {{ Html::style('js/select2/theme.css', ['cache' => 'false']) }}
     {{ Html::style('js/fuelux/fuelux.css', ['cache' => 'false']) }}
     
     <!-- Bootstrap --> <!-- App -->
@@ -33,6 +34,8 @@
     {{ Html::script('js/sortable/jquery.sortable.js', ['cache' => 'false']) }}
     Select2 
     {{ Html::script('js/select2/select2.min.js', ['cache' => 'false']) }}-->
+    <!--Select2--> 
+    {{ Html::script('js/select2/select2.min.js', ['cache' => 'false']) }}
     <!-- parsley -->
     {{ Html::script('js/parsley/parsley.min.js', ['cache' => 'false']) }}
     {{ Html::script('js/parsley/parsley.extend.js', ['cache' => 'false']) }}

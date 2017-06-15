@@ -3,8 +3,10 @@
 @section('title', 'Thêm mới bài viết')
 
 @section('content')
-<!--- ckfinder -->
+<!--- CkEditor -->
 {{ Html::script('js/ckeditor/ckeditor.js') }}
+<!--- CkFinder -->
+{{ Html::script('js/ckfinder/ckfinder.js') }}
 
 <section id="content">
     <section class="vbox">
@@ -37,7 +39,7 @@
                                     <i class="fa fa-foursquare"></i> Thông tin bài viết
                                 </h5>
                                 <div class="form-group m-b-xs" id="div-link">
-                                    <label class="col-sm-2 control-label">Danh mục chứa <font color="red">*</font> :</label>
+                                    <label class="col-sm-2 control-label">Danh mục chứa <font color="red">*</font>:</label>
                                     <div class="col-lg-6">
                                         <select name="menu_id" class="form-control"
                                                 data-required="true" data-required-message="<b>Danh mục chứa</b> không được để trống">
@@ -49,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group m-b-xs" id="div-link">
-                                    <label class="col-sm-2 control-label">Tiêu đề <font color="red">*</font> :</label>
+                                    <label class="col-sm-2 control-label">Tiêu đề <font color="red">*</font>:</label>
                                     <div class="col-lg-6">
                                         <input type="text" name="title" class="form-control"
                                                data-required="true" data-required-message="<b>Tiêu đề</b> không được để trống">
@@ -79,6 +81,13 @@
                                     <div class="col-lg-6">
                                         <textarea cols="50" rows="3" class="form-control" name="meta_desciption" id="meta_desciption"
                                                   data-maxlength="500" data-maxlength-message="<b>Meta description</b> không được vượt quá 500 ký tự" ></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group m-b-xs" id="div-link">
+                                    <label class="col-sm-2 control-label">Ảnh đại diện :</label>
+                                    <div class="col-lg-6">
+                                        <input hidden name="avatar" id="avatar" value="/images/no-image.jpg" />
+                                        <img src="/images/no-image.jpg" id="select_avatar" class="img-avatar"/>
                                     </div>
                                 </div>
                                 <div class="form-group m-b-xs">
@@ -123,6 +132,17 @@
 <script>
     CKEDITOR.replace('description', { height: 100 });
     CKEDITOR.replace('post_content');
+    
+    $(function () {
+        $('#select_avatar').click(function () {
+            var ckfinder = new CKFinder();
+            ckfinder.selectActionFunction = function (fileUrl) {
+                $('#select_avatar').attr("src", fileUrl);
+                $('#avatar').val(fileUrl);
+            };
+            ckfinder.popup();
+        });
+    });
 </script>
 @endsection
 

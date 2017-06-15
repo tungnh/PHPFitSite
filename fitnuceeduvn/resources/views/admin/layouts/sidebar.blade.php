@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <!-- Tin tức -->
-                        <li {{ (Request::is('admin/post/*') || Request::is('admin/comment/*')) ? 'class=active' : '' }}>
+                        <li {{ (Request::is('admin/post/*') || Request::is('admin/comment/*') || Request::is('admin/slide/*')) ? 'class=active' : '' }}>
                             <a href="#post">
                                 <i class="fa fa-tag icon"><b class="bg-info"></b></i>
                                 <span class="pull-right">

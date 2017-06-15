@@ -139,7 +139,7 @@
                                     <input type="checkbox" />
                                 </td>
                                 <td align="center" style="vertical-align: middle;">{{ $index }}</td>
-                                <td>{{ $post->avatar }}</td>
+                                <td width="150px"><img src="{{ $post->avatar }}" class="img-thumbnail"/></td>
                                 <td>{{ $post->title }}</td>
                                 <td align="center">{!! $post->description !!}</td>
                                 <td align="center" style="vertical-align: middle;">{{ $post->menu ? $post->menu->title : '' }}</td>

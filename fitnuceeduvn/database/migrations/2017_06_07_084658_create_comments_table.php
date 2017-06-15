@@ -15,11 +15,11 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->string('full_name', 200);
-            $table->string('email', 200);
+            $table->integer('account_id')->unsigned()->nullable();
+            $table->string('full_name', 200)->nullable();
+            $table->string('email')->nullable();
             $table->integer('parent_id')->unsigned()->default(0);
-            $table->integer('post_id')->unsigned()->nullable();
+            $table->integer('post_id')->unsigned();
             $table->text('comments_content');
             $table->integer('total_like')->default(0);
             $table->boolean('is_active');
