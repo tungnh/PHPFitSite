@@ -72,7 +72,7 @@ class MenuController extends Controller
         try {
             $menu_info = Menu::find($id);
             if ($menu_info) {
-                $menus_root = Menu::all(['id', 'title']);
+                $menus_root = Menu::where('id', '!=', $id)->get(['id', 'title']);
                 return view('/admin/menu/edit')->with(['menu_info'=> $menu_info, 'menus_root' => $menus_root]);
             } else {
                 Session::flash(Constants::$SESSION_MSG_ERROR, Constants::$MSG_ERROR_DATA_NOT_EXIT);

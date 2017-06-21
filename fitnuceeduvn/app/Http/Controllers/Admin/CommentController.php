@@ -38,7 +38,8 @@ class CommentController extends Controller
     
     public function getCommentsByPost($id = null, $reply_id = null) 
     {
-        $comments = Comment::where('post_id', '=', $id)->get();
+        $comments = Comment::where('post_id', '=', $id)
+                ->where('id', '!=', $reply_id)->get();
         return view('admin.comment.comments_by_post')->with(['comments' => $comments, 'reply_id' => $reply_id]);
     }
     
@@ -85,7 +86,7 @@ class CommentController extends Controller
     {
         $comment_info = Comment::find($id);
         $posts = Post::all(['id', 'title']);
-        return view('admin.comment.edit')->with(['comment_info' => $comment_info, 'posts' => $posts, 'comment_reply' => $comment_info->comment_root]);
+        return view('admin.comment.edit')->with(['comment_info' => $comment_info, 'posts' => $posts, 'comment_reply' => $comment_info]);
     }
     
     public function postEdit(CommentRequest $request, $id)

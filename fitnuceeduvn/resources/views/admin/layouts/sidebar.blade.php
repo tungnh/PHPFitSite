@@ -59,12 +59,12 @@
                             </ul>
                         </li>
                         <!-- Văn bản -->
-                        <li>
+<!--                        <li>
                             <a href="index.html" class="active">
                                 <i class="fa fa-file icon"><b class="bg-info"></b></i>
                                 <span>Văn bản</span>
                             </a>
-                        </li>
+                        </li>-->
                         <!-- Media -->
                         <li>
                             <a href="#layout">
@@ -130,7 +130,7 @@
                         </li>
                         <!-- Người dùng -->
                         <li {{ (Request::is('admin/user/*') || Request::is('admin/account/*')) ? 'class=active' : '' }}>
-                            <a href="#layout" {{ (Request::is('admin/user/*') || Request::is('admin/account/*')) ? 'class=active' : '' }}>
+                            <a href="#user" {{ (Request::is('admin/user/*') || Request::is('admin/account/*')) ? 'class=active' : '' }}>
                                 <i class="fa fa-group icon"><b class="bg-info"></b></i>
                                 <span class="pull-right">
                                     <i class="fa fa-angle-down text"></i>
@@ -159,6 +159,37 @@
                                 </li>
                             </ul>
                         </li>
+                        <!--Cơ cấu tổ chức-->
+                        <li {{ (Request::is('admin/department/*') || Request::is('admin/position/*')) ? 'class=active' : '' }}>
+                            <a href="#layout" {{ (Request::is('admin/department/*') || Request::is('admin/position/*')) ? 'class=active' : '' }}>
+                                <i class="fa fa-sitemap icon"><b class="bg-info"></b></i>
+                                <span class="pull-right">
+                                    <i class="fa fa-angle-down text"></i>
+                                    <i class="fa fa-angle-up text-active"></i>
+                                </span>
+                                <span>Cơ cấu tổ chức</span>
+                            </a>
+                            <ul class="nav lt">
+                                <li {{ (Request::is('admin/department/*')) ? 'class=active' : '' }}>
+                                    <a href="{{ url('/admin/department/index') }}" {{ (Request::is('admin/department/*')) ? 'class=active' : '' }}>
+                                        <i class="fa fa-angle-right"></i>
+                                        <span>Phòng ban, bộ môn</span>
+                                    </a>
+                                </li>
+                                <li {{ (Request::is('admin/position/*')) ? 'class=active' : '' }}>
+                                    <a href="{{ url('/admin/position/index') }}" {{ (Request::is('admin/position/*')) ? 'class=active' : '' }}>
+                                        <i class="fa fa-angle-right"></i>
+                                        <span>Chức vụ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="layout-c.html">
+                                        <i class="fa fa-angle-right"></i>
+                                        <span>Khóa học</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- Hệ thống -->
                         <li>
                             <a href="#layout">
@@ -174,24 +205,6 @@
                                     <a href="layout-c.html">
                                         <i class="fa fa-angle-right"></i>
                                         <span>Lịch sử truy cập hệ thống</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-r.html">
-                                        <i class="fa fa-angle-right"></i>
-                                        <span>Cơ cấu tổ chức</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-h.html">
-                                        <i class="fa fa-angle-right"></i>
-                                        <span>Chức vụ</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="layout-c.html">
-                                        <i class="fa fa-angle-right"></i>
-                                        <span>Khóa học</span>
                                     </a>
                                 </li>
                                 <li>

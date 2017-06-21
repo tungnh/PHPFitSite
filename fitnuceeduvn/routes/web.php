@@ -21,16 +21,22 @@ Route::group(['prefix' => 'error'], function() {
 });
 
 //Authencation FrontEnd
-//Auth::routes();
+Auth::routes();
 //Admin Areas
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     //Authencation Admin
     Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
+        //Authencation
         Route::get('/login', ['as' => 'getAdminAuthLogin', 'uses' => 'LoginController@getLogin']);
         Route::post('/login', ['as' => 'postAdminAuthLogin', 'uses' => 'LoginController@postLogin']);
         Route::post('/logout', ['as' => 'postAdminAuthLogout', 'uses' => 'LoginController@postLogout']);
         
-        
+        //Forgot pasword
+        Route::group(['prefix' => 'password'], function () {
+            Route::get('/reset', ['as' => 'getAdminAuthPasswordReset', 'uses' => 'ResetPasswordController@getReset']);
+            Route::post('/reset/{token}', ['as' => 'postAdminAuthPasswordReset', 'uses' => 'ResetPasswordController@postReset']);
+            Route::post('/email', ['as' => 'postAdminAuthPasswordEmail', 'uses' => 'ForgotPasswordController@postEmail']);
+        });
     });
 
     //Check Authencation
@@ -107,6 +113,26 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('/edit/{id}', ['as' => 'getAdminUserEdit', 'uses' => 'UserController@getEdit']);
             Route::post('/edit/{id}', ['as' => 'postAdminUserEdit', 'uses' => 'UserController@postEdit']);
             Route::post('/delete/{id}', ['as' => 'postAdminUserDelete', 'uses' => 'UserController@postDelete']);
+        });
+        
+        //Department
+        Route::group(['prefix' => 'department'], function() {
+            Route::get('/index', ['as' => 'getAdminDepartmentIndex', 'uses' => 'DepartmentController@index']);
+            Route::get('/add', ['as' => 'getAdminDepartmentAdd', 'uses' => 'DepartmentController@getAdd']);
+            Route::post('/add', ['as' => 'postAdminDepartmentAdd', 'uses' => 'DepartmentController@postAdd']);
+            Route::get('/edit/{id}', ['as' => 'getAdminDepartmentEdit', 'uses' => 'DepartmentController@getEdit']);
+            Route::post('/edit/{id}', ['as' => 'postAdminDepartmentEdit', 'uses' => 'DepartmentController@postEdit']);
+            Route::post('/delete/{id}', ['as' => 'postAdminDepartmentDelete', 'uses' => 'DepartmentController@postDelete']);
+        });
+        
+        //Position
+        Route::group(['prefix' => 'position'], function() {
+            Route::get('/index', ['as' => 'getAdminPositionIndex', 'uses' => 'PositionController@index']);
+            Route::get('/add', ['as' => 'getAdminPositionAdd', 'uses' => 'PositionController@getAdd']);
+            Route::post('/add', ['as' => 'postAdminPositionAdd', 'uses' => 'PositionController@postAdd']);
+            Route::get('/edit/{id}', ['as' => 'getAdminPositionEdit', 'uses' => 'PositionController@getEdit']);
+            Route::post('/edit/{id}', ['as' => 'postAdminPositionEdit', 'uses' => 'PositionController@postEdit']);
+            Route::post('/delete/{id}', ['as' => 'postAdminPositionDelete', 'uses' => 'PositionController@postDelete']);
         });
     });
 });

@@ -6,13 +6,11 @@
             <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/layouts/app.blade.php</file>
             <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/routes/web.php</file>
             <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/AccountController.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Model/Comment.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/comment/add.blade.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/MenuController.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/Auth/ForgotPasswordController.php</file>
             <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/CommentController.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/home/index.blade.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/layouts/header.blade.php</file>
-            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/comment/index.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/comment/edit.blade.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/app/Http/Controllers/Admin/Auth/ResetPasswordController.php</file>
+            <file>file:/E:/Project/01.%20CNTT/UpdateSite/PHPSite/fitnuceeduvn/resources/views/admin/auth/passwords/email.blade.php</file>
         </group>
     </open-files>
 </project-private>
